@@ -27,15 +27,17 @@ namespace JuncalApi.Controllers
         public async Task<ActionResult<IEnumerable<ChoferRespuesta>>> GetChoferes()
         {
 
-            var ListaChoferes = _uow.RepositorioJuncalChofer.GetAll().ToList();
+            var ListaChoferes = _uow.RepositorioJuncalChofer.GetAll().Where(c=>c.Isdeleted==false).ToList();
 
             if (ListaChoferes.Count() > 0)
             {
                 List<ChoferRespuesta> listaChoferesRespuesta = _mapper.Map<List<ChoferRespuesta>>(ListaChoferes);
-                return Ok(listaChoferesRespuesta);
+                return Ok(new { success = true, message = "La Lista Esta Lista Para Ser Utilizada ", result = listaChoferesRespuesta });
 
             }
-            else return new List<ChoferRespuesta>();
+            
+            return Ok(new { success = false, message = "La Lista Esta Vacia ", result = new List<ChoferRespuesta>() == null });
+       
 
         }
 
@@ -49,43 +51,45 @@ namespace JuncalApi.Controllers
                 JuncalChofer choferNuevo = _mapper.Map<JuncalChofer>(choferReq);
 
                 _uow.RepositorioJuncalChofer.Insert(choferNuevo);
+                return Ok(new { success = true, message = " Chofer Creado Con Exito ", result = choferNuevo });
 
             }
-
-
-            return Ok();
+            else if(chofer.Isdeleted==true) return Ok(new { success = false, message = "El Chofer Ya Existe, Pero Esta Eliminado ", result = chofer });
+            else return Ok(new { success = false, message = "El Chofer Ya Existe ", result = chofer });
 
         }
 
-        [HttpDelete("{id}")]
+        [Route("Borrar/{id?}")]
+        [HttpPut]
         public IActionResult IsDeletedChofer(int id)
         {
 
             var chofer = _uow.RepositorioJuncalChofer.GetById(id);
-            if (chofer != null)
+            if (chofer != null && chofer.Isdeleted==false)
             {
                 chofer.Isdeleted = true;
                 _uow.RepositorioJuncalChofer.Update(chofer);
-
+                return Ok(new { success = true, message = " Chofer Eliminado ", result = chofer.Isdeleted});
             }
 
-            return Ok();
+            return Ok(new { success = false, message = "No Se Encontro El Chofer ", result = new ChoferRespuesta() == null });
 
 
         }
+
         [HttpPut("{id}")]
         public async Task<IActionResult> EditChofer(int id, ChoferRequerido choferEdit)
         {
             var chofer = _uow.RepositorioJuncalChofer.GetById(id);
 
-            if (chofer != null)
+            if (chofer != null && chofer.Isdeleted == false)
             {
                 chofer = _mapper.Map<JuncalChofer>(choferEdit);
                 _uow.RepositorioJuncalChofer.Update(chofer);
-
+                return Ok(new { success = true, message = " El Chofer Ha Sido Actualizado ", result = chofer });
             }
-
-            return Ok();
+           
+            return Ok(new { success = false, message = "No Se Encontro El Chofer ", result = new ChoferRespuesta() == null });
 
 
         }
