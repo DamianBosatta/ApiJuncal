@@ -1,4 +1,5 @@
-﻿using JuncalApi.Dto.DtoRequerido;
+﻿using AutoMapper;
+using JuncalApi.Dto.DtoRequerido;
 using JuncalApi.Dto.DtoRespuesta;
 using JuncalApi.Modelos;
 using JuncalApi.Seguridad;
@@ -18,11 +19,14 @@ namespace JuncalApi.Servicios
     {
         private readonly IUnidadDeTrabajo _uow;
         public IConfiguration _configuration;
+        private readonly IMapper _mapper;
 
-        public ServicioUsuario(IConfiguration configuration,IUnidadDeTrabajo uow)
+
+        public ServicioUsuario(IConfiguration configuration,IUnidadDeTrabajo uow,IMapper mapper)
         {
             _configuration = configuration;
             _uow = uow;
+            _mapper = mapper;
         }
 
         public dynamic InicioSesion(LoginRequerido userReq)
@@ -78,9 +82,22 @@ namespace JuncalApi.Servicios
             };
         }
 
-        public int RegistroUsuario(LoginRequerido userReq)
+        public JuncalUsuario RegistroUsuario(UsuarioRequerido userReq)
         {
-            throw new NotImplementedException();
+            var usuario = _uow.RepositorioJuncalUsuario.GetByCondition(c => c.Id == userReq.Id);
+
+            if(usuario is null)
+            {
+                JuncalUsuario usuarioNuevo = _mapper.Map<JuncalUsuario>(userReq);
+
+                _uow.RepositorioJuncalUsuario.Insert(usuarioNuevo);
+
+                return usuarioNuevo;
+
+            }
+
+            return null;
+
         }
     }
 }

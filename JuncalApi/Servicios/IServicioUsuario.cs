@@ -1,5 +1,6 @@
 ﻿using JuncalApi.Dto.DtoRequerido;
 using JuncalApi.Dto.DtoRespuesta;
+using JuncalApi.Modelos;
 
 namespace JuncalApi.Servicios
 {
@@ -7,7 +8,7 @@ namespace JuncalApi.Servicios
     {
 
         public dynamic InicioSesion (LoginRequerido userReq);
-        public int RegistroUsuario(LoginRequerido userReq);   
+        public JuncalUsuario RegistroUsuario(UsuarioRequerido userReq);   
 
     }
 }
