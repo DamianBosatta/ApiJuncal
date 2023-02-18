@@ -84,7 +84,7 @@ namespace JuncalApi.Servicios
 
         public JuncalUsuario RegistroUsuario(UsuarioRequerido userReq)
         {
-            var usuario = _uow.RepositorioJuncalUsuario.GetByCondition(c => c.Id == userReq.Id);
+            var usuario = _uow.RepositorioJuncalUsuario.GetByCondition(c => c.Dni == userReq.Dni);
 
             if(usuario is null)
             {
