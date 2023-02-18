@@ -39,6 +39,29 @@ namespace JuncalApi.Controllers
 
         }
 
+
+        [Route("Buscar/{id?}")]
+        [HttpGet]
+        public ActionResult GetByIdMaterial(int id)
+        {
+
+
+
+            var material = _uow.RepositorioJuncalMaterial.GetById(id);
+
+            if (material is null)
+            {
+                return Ok(new { success = false, message = "No Se Encontro El Material", result = new MaterialRespuesta() == null });
+            }
+            MaterialRespuesta materialRes = new MaterialRespuesta();
+
+            _mapper.Map(material,materialRes);
+
+            return Ok(new { success = true, message = "Aceria Encontrada", result = materialRes });
+
+        }
+
+
         [HttpPost]
         public ActionResult CargarMaterial([FromBody] MaterialRequerido materialReq)
         {
@@ -85,7 +108,7 @@ namespace JuncalApi.Controllers
 
             if (material != null && material.Isdeleted == false)
             {
-                material = _mapper.Map<JuncalMaterial>(materialEdit);
+                material = _mapper.Map(materialEdit,material);
                 _uow.RepositorioJuncalMaterial.Update(material);
                 return Ok(new { success = true, message = "El Material fue actualizado", result = material });
             }

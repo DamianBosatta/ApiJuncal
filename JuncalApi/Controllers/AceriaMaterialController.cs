@@ -84,7 +84,7 @@ namespace JuncalApi.Controllers
 
             if (aceriaMat != null && aceriaMat.Isdeleted == false)
             {
-                aceriaMat = _mapper.Map<JuncalAceriaMaterial>(aceriaMatEdit);
+                aceriaMat = _mapper.Map(aceriaMatEdit,aceriaMat);
                 _uow.RepositorioJuncalAceriaMaterial.Update(aceriaMat);
                 return Ok(new { success = true, message = "La Aceria Material fue actualizada", result = aceriaMat });
             }

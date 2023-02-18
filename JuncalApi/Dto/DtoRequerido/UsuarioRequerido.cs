@@ -3,7 +3,6 @@
     public class UsuarioRequerido
     {
 
-        public int Id { get; set; }
 
         public string Usuario { get; set; } = null!;
 

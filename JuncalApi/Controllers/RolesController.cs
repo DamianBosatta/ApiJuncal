@@ -63,7 +63,7 @@ namespace JuncalApi.Controllers
 
             if (rol != null)
             {
-                rol = _mapper.Map<JuncalRole>(rolEdit);
+                _mapper.Map(rolEdit,rol);
                 _uow.RepositorioJuncalRole.Update(rol);
                 return Ok(new { success = true, message = "El Rol fue actualizado", result = rol });
             }

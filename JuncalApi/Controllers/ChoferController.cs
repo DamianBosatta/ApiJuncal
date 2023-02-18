@@ -84,7 +84,7 @@ namespace JuncalApi.Controllers
 
             if (chofer != null && chofer.Isdeleted == false)
             {
-                chofer = _mapper.Map<JuncalChofer>(choferEdit);
+                chofer = _mapper.Map(choferEdit,chofer);
                 _uow.RepositorioJuncalChofer.Update(chofer);
                 return Ok(new { success = true, message = " El Chofer Ha Sido Actualizado ", result = chofer });
             }

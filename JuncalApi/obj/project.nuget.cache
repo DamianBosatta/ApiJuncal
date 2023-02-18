@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "928OL27m8YUf26+IlXbIeif/LfW1HDoZ4PmJPlTb0AI9+2j/gGRrXainm3H24oAvWBAtpYO+BtxvTU0iisL4PA==",
+  "dgSpecHash": "0KV9MuFWhcxiMcyRZhJQe6w+fxSnKXhWwmixc6Nel1Ol5582nN7/PnI0oyE9pLeJZ4bC6FzdDphzVB3xixqa0g==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Felix\\OneDrive\\Escritorio\\Geo Educacion\\JuncalApi\\JuncalApi\\JuncalApi\\JuncalApi.csproj",
+  "projectFilePath": "C:\\Users\\Felix\\OneDrive\\Escritorio\\Proyecto Juncal Api\\JuncalApi\\JuncalApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Felix\\.nuget\\packages\\automapper\\12.0.0\\automapper.12.0.0.nupkg.sha512",
     "C:\\Users\\Felix\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.0\\automapper.extensions.microsoft.dependencyinjection.12.0.0.nupkg.sha512",

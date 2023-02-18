@@ -83,7 +83,7 @@ namespace JuncalApi.Controllers
 
             if ( transportista!= null && transportista.Isdeleted == false)
             {
-                transportista = _mapper.Map<JuncalTransportistum>(transportistaEdit);
+                transportista = _mapper.Map(transportistaEdit,transportista);
                 _uow.RepositorioJuncalTransportistum.Update(transportista);
                 return Ok(new { success = true, message = " El Transportista Fue Actualizado Con Exito ", result = transportista });
             }

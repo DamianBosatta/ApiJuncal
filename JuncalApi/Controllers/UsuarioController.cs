@@ -43,7 +43,7 @@ namespace JuncalApi.Controllers
 
         }
 
-
+        [Route("/Registro")]
         [HttpPost]
         public ActionResult RegistrarUsuario([FromBody] UsuarioRequerido usuarioReq)
         {
@@ -85,7 +85,7 @@ namespace JuncalApi.Controllers
 
             if (usuario != null)
             { 
-            usuario = _mapper.Map<JuncalUsuario>(usuarioEdit);
+            usuario = _mapper.Map(usuarioEdit,usuario);
                 _uow.RepositorioJuncalUsuario.Update(usuario);
                 
             return Ok(new { success = true, message = "El Usuario fue actualizado", result = usuario });

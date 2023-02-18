@@ -89,7 +89,7 @@ namespace JuncalApi.Controllers
 
             if (camion != null && camion.Isdeleted == false)
             {
-                camion = _mapper.Map<JuncalCamion>(camionEdit);
+                camion = _mapper.Map(camionEdit,camion);
                 _uow.RepositorioJuncalCamion.Update(camion);
                 return Ok(new { success = true, message = "El transportista fue actualizado", result = camion});
             }

@@ -37,11 +37,31 @@ namespace JuncalApi.Controllers
 
 
         }
+        [Route("Buscar/{id?}")]
+        [HttpGet]
+        public ActionResult GetByIdAceria(int id)
+        {
+            var aceria = _uow.RepositorioJuncalAcerium.GetById(id);
+
+            if (aceria is null)
+            {
+                return Ok(new { success = false, message = "No Se Encontro La Aceria", result = new AceriaRespuesta() == null });
+            }
+            AceriaRespuesta aceriaRes = new AceriaRespuesta();
+
+            _mapper.Map(aceria, aceriaRes);
+
+            return Ok(new { success = true, message = "Aceria Encontrada", result = aceria });
+
+
+
+        }
+
 
         [HttpPost]
         public ActionResult CargarAceria([FromBody] AceriaRequerido aceriaReq)
         {
-            var aceria = _uow.RepositorioJuncalAcerium.GetAll(c => c.Cuit.Equals(aceriaReq.Cuit)).SingleOrDefault();
+            var aceria = _uow.RepositorioJuncalAcerium.GetByCondition(c => c.Cuit.Equals(aceriaReq.Cuit));
 
             if (aceria is null)
             {
@@ -50,8 +70,8 @@ namespace JuncalApi.Controllers
                 _uow.RepositorioJuncalAcerium.Insert(aceriaNuevo);
                 return Ok(new { success = true, message = "La Aceria fue Creada Con Exito", result = aceriaNuevo });
             }
-            else if (aceria.Isdeleted == true) return Ok(new { success = false, message = " La Aceria Ya Existe , Pero Esta Eliminada ", result = aceria });
-            else return Ok(new { success = false, message = " La Aceria Ya Existe ", result = aceria });
+          
+           return Ok(new { success = false, message = " La Aceria Ya Existe ", result = aceria });
 
         }
 
@@ -81,10 +101,10 @@ namespace JuncalApi.Controllers
         public async Task<IActionResult> EditAceria(int id, AceriaRequerido aceriaEdit)
         {
             var aceria = _uow.RepositorioJuncalAcerium.GetById(id);
-
+            
             if (aceria != null && aceria.Isdeleted == false)
             {
-                aceria = _mapper.Map<JuncalAcerium>(aceriaEdit);
+                _mapper.Map(aceriaEdit,aceria);
                 _uow.RepositorioJuncalAcerium.Update(aceria);
                 return Ok(new { success = true, message = "La Aceria fue actualizada", result = aceria});
             }
