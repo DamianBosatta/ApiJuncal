@@ -44,12 +44,9 @@ namespace JuncalApi.Controllers
         [HttpGet]
         public ActionResult GetByIdMaterial(int id)
         {
-
-
-
             var material = _uow.RepositorioJuncalMaterial.GetById(id);
 
-            if (material is null)
+            if (material is null || material.Isdeleted==true)
             {
                 return Ok(new { success = false, message = "No Se Encontro El Material", result = new MaterialRespuesta() == null });
             }
@@ -65,17 +62,16 @@ namespace JuncalApi.Controllers
         [HttpPost]
         public ActionResult CargarMaterial([FromBody] MaterialRequerido materialReq)
         {
-            var material = _uow.RepositorioJuncalMaterial.GetByCondition(c => c.Cod.Equals(materialReq.Cod));
+            var material = _uow.RepositorioJuncalMaterial.GetByCondition(c => c.Nombre.Equals(materialReq.Nombre)&& c.Isdeleted==false);
 
             if (material is null)
             {
                 JuncalMaterial materialNuevo = _mapper.Map<JuncalMaterial>(materialReq);
-
                 _uow.RepositorioJuncalMaterial.Insert(materialNuevo);
                 return Ok(new { success = true, message = "El Material fue Creado Con Exito", result = materialNuevo });
             }
            
-            else return Ok(new { success = false, message = " El Material Ya Existe ", result = material });
+            return Ok(new { success = false, message = " El Material Ya Esta Cargado ", result = material });
 
         }
 
@@ -91,13 +87,10 @@ namespace JuncalApi.Controllers
                 material.Isdeleted = true;
                 _uow.RepositorioJuncalMaterial.Update(material);
 
-                return Ok(new { success = true, message = "El Material Fue Eliminada ", result = material.Isdeleted });
-
+                return Ok(new { success = true, message = "El Material Fue Eliminado ", result = material.Isdeleted });
 
             }
-
-
-            return Ok(new { success = false, message = "El Material no fue encontrado", result = new JuncalMaterial() == null });
+            return Ok(new { success = false, message = "El Material No Fue encontrado", result = new JuncalMaterial() == null });
 
         }
 

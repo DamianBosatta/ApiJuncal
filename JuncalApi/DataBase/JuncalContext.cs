@@ -44,6 +44,8 @@ public partial class JuncalContext : DbContext
 
     public virtual DbSet<JuncalRole> JuncalRoles { get; set; }
 
+    public virtual DbSet<JuncalTipoCamion> JuncalTipoCamions { get; set; }
+
     public virtual DbSet<JuncalTransportistum> JuncalTransportista { get; set; }
 
     public virtual DbSet<JuncalUsuario> JuncalUsuarios { get; set; }
@@ -114,6 +116,9 @@ public partial class JuncalContext : DbContext
             entity.Property(e => e.Id)
                 .HasColumnType("int(11)")
                 .HasColumnName("id");
+            entity.Property(e => e.CodProveedor)
+                .HasMaxLength(255)
+                .HasColumnName("Cod_proveedor");
             entity.Property(e => e.Cuit)
                 .HasMaxLength(255)
                 .HasColumnName("cuit");
@@ -141,6 +146,8 @@ public partial class JuncalContext : DbContext
 
             entity.HasIndex(e => e.IdTransportista, "fk_camion_transportista");
 
+            entity.HasIndex(e => e.IdTipoCamion, "fk_id_tipoCamion");
+
             entity.Property(e => e.Id)
                 .HasColumnType("int(11)")
                 .HasColumnName("id");
@@ -150,6 +157,9 @@ public partial class JuncalContext : DbContext
             entity.Property(e => e.IdInterno)
                 .HasColumnType("int(11)")
                 .HasColumnName("id_interno");
+            entity.Property(e => e.IdTipoCamion)
+                .HasColumnType("int(200)")
+                .HasColumnName("id_tipoCamion");
             entity.Property(e => e.IdTransportista)
                 .HasColumnType("int(11)")
                 .HasColumnName("id_transportista");
@@ -169,6 +179,11 @@ public partial class JuncalContext : DbContext
             entity.HasOne(d => d.IdChoferNavigation).WithMany(p => p.JuncalCamions)
                 .HasForeignKey(d => d.IdChofer)
                 .HasConstraintName("fk_camion_chofer");
+
+            entity.HasOne(d => d.IdTipoCamionNavigation).WithMany(p => p.JuncalCamions)
+                .HasForeignKey(d => d.IdTipoCamion)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("fk_id_tipoCamion");
 
             entity.HasOne(d => d.IdTransportistaNavigation).WithMany(p => p.JuncalCamions)
                 .HasForeignKey(d => d.IdTransportista)
@@ -326,9 +341,6 @@ public partial class JuncalContext : DbContext
             entity.Property(e => e.Id)
                 .HasColumnType("int(11)")
                 .HasColumnName("id");
-            entity.Property(e => e.Cod)
-                .HasMaxLength(255)
-                .HasColumnName("cod");
             entity.Property(e => e.Isdeleted).HasColumnName("isdeleted");
             entity.Property(e => e.Nombre)
                 .HasMaxLength(255)
@@ -493,7 +505,20 @@ public partial class JuncalContext : DbContext
             entity.HasIndex(e => e.Id, "unq_roles_id").IsUnique();
 
             entity.Property(e => e.Id)
-                .ValueGeneratedNever()
+                .HasColumnType("int(11)")
+                .HasColumnName("id");
+            entity.Property(e => e.Nombre)
+                .HasMaxLength(255)
+                .HasColumnName("nombre");
+        });
+
+        modelBuilder.Entity<JuncalTipoCamion>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PRIMARY");
+
+            entity.ToTable("juncal.tipo_camion");
+
+            entity.Property(e => e.Id)
                 .HasColumnType("int(11)")
                 .HasColumnName("id");
             entity.Property(e => e.Nombre)
@@ -554,9 +579,12 @@ public partial class JuncalContext : DbContext
             entity.Property(e => e.Nombre)
                 .HasMaxLength(255)
                 .HasColumnName("nombre");
-            entity.Property(e => e.Sha256)
-                .HasMaxLength(255)
-                .HasColumnName("sha256");
+            entity.Property(e => e.PasswordHash)
+                .HasColumnType("bit(64)")
+                .HasColumnName("passwordHASH");
+            entity.Property(e => e.PasswordSalt)
+                .HasColumnType("bit(64)")
+                .HasColumnName("passwordSALT");
             entity.Property(e => e.Usuario)
                 .HasMaxLength(255)
                 .HasColumnName("usuario");

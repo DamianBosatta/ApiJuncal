@@ -41,7 +41,7 @@ namespace JuncalApi.Controllers
         [HttpPost]
         public ActionResult CargarAceriaMaterial([FromBody] AceriaMaterialRequerido aceriaMatRequerido)
         {
-            var aceriaMat = _uow.RepositorioJuncalAceriaMaterial.GetAll(c => c.Cod.Equals(aceriaMatRequerido.Cod)).SingleOrDefault();
+            var aceriaMat = _uow.RepositorioJuncalAceriaMaterial.GetByCondition(m => m.Cod.Equals(aceriaMatRequerido.Cod)&& m.Isdeleted==false);
 
             if (aceriaMat is null)
             {
@@ -50,8 +50,8 @@ namespace JuncalApi.Controllers
                 _uow.RepositorioJuncalAceriaMaterial.Insert(aceriaMatNuevo);
                 return Ok(new { success = true, message = "La Aceria Material fue Creada Con Exito", result = aceriaMatNuevo });
             }
-            else if (aceriaMat.Isdeleted == true) return Ok(new { success = false, message = " La Aceria Ya Existe , Pero Esta Eliminada ", result = aceriaMat });
-            else return Ok(new { success = false, message = " La Aceria Ya Existe ", result = aceriaMat });
+         
+         return Ok(new { success = false, message = " La Aceria Ya Esta Cargada ", result = aceriaMat });
 
         }
 

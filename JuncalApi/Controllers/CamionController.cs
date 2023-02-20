@@ -46,17 +46,16 @@ namespace JuncalApi.Controllers
         [HttpPost]
         public ActionResult CargarCamion([FromBody] CamionRequerido camionReq) 
         {
-            var camion = _uow.RepositorioJuncalCamion.GetAll(c => c.Patente.Equals(camionReq.Patente)).SingleOrDefault();         
+            var camion = _uow.RepositorioJuncalCamion.GetByCondition(c => c.Patente.Equals(camionReq.Patente) && c.Isdeleted == false);       
 
             if (camion is null)
             {
                 JuncalCamion camionNuevo = _mapper.Map<JuncalCamion>(camionReq);
-
                 _uow.RepositorioJuncalCamion.Insert(camionNuevo);
                 return Ok(new { success = true, message = "El transportista fue Creado Con Exito", result = camionNuevo });
             }
-            else if (camion.Isdeleted==true) return Ok(new { success = false, message = " El Camion Ya Existe , Pero Esta Eliminado ", result = camion });
-            else return Ok(new { success = false, message = " El Camion Ya Existe ", result = camion });
+        
+            else return Ok(new { success = false, message = " El Camion Ya Esta Registrado ", result = camion });
 
         }
 

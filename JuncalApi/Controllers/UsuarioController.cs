@@ -16,14 +16,14 @@ namespace JuncalApi.Controllers
 
         private readonly IUnidadDeTrabajo _uow;
         private readonly IMapper _mapper;
-        private readonly IServicioUsuario _Servicio;
+        private readonly IServicioUsuario _servicio;
 
         public UsuarioController(IUnidadDeTrabajo uow, IMapper mapper,IServicioUsuario servicio)
         {
 
             _mapper = mapper;
             _uow = uow;
-            _Servicio = servicio;
+            _servicio = servicio;
         }
 
         [HttpGet]
@@ -47,24 +47,23 @@ namespace JuncalApi.Controllers
         [HttpPost]
         public ActionResult RegistrarUsuario([FromBody] UsuarioRequerido usuarioReq)
         {
-            var usuario = _uow.RepositorioJuncalUsuario.GetByCondition(c => c.Dni.Equals(usuarioReq.Dni));
+            var usuario = _uow.RepositorioJuncalUsuario.GetByCondition(c => c.Dni.Equals(usuarioReq.Dni)&& c.Isdeleted==false);
 
             if (usuario is null)
             {
                 JuncalUsuario usuarioNuevo = _mapper.Map<JuncalUsuario>(usuarioReq);
-
                 _uow.RepositorioJuncalUsuario.Insert(usuarioNuevo);
                 return Ok(new { success = true, message = "El Usuario fue Creado Con Exito", result = usuarioNuevo });
             }
            
-             return Ok(new { success = false, message = " El Usuario Ya Existe ", result = new JuncalUsuario()==null });
+             return Ok(new { success = false, message = " El Usuario Ya Esta Registrado ", result = new JuncalUsuario()==null });
 
         }
 
         [HttpPost]
         public ActionResult Login([FromBody] LoginRequerido userReq)
         {
-          var Sesion = _Servicio.InicioSesion(userReq);
+          var Sesion = _servicio.InicioSesion(userReq);
 
             if (Sesion is "") 
             { 
@@ -83,15 +82,15 @@ namespace JuncalApi.Controllers
         {
             var usuario = _uow.RepositorioJuncalUsuario.GetById(id);
 
-            if (usuario != null)
+            if (usuario != null && usuario.Isdeleted==false)
             { 
             usuario = _mapper.Map(usuarioEdit,usuario);
                 _uow.RepositorioJuncalUsuario.Update(usuario);
                 
-            return Ok(new { success = true, message = "El Usuario fue actualizado", result = usuario });
+            return Ok(new { success = true, message = "El Usuario Fue Actualizado", result = usuario });
             }
 
-            return Ok(new { success = false, message = "El Usuario no se Encontro", result = new JuncalUsuario()==null });
+            return Ok(new { success = false, message = "El Usuario No Existe", result = new JuncalUsuario()==null });
 
 
         }
@@ -107,13 +106,13 @@ namespace JuncalApi.Controllers
                 usuario.Isdeleted = true;
                 _uow.RepositorioJuncalUsuario.Update(usuario);
 
-                return Ok(new { success = true, message = "El usuario Fue Eliminado ", result = usuario.Isdeleted });
+                return Ok(new { success = true, message = "El Usuario Fue Eliminado ", result = usuario.Isdeleted });
 
 
             }
 
 
-            return Ok(new { success = false, message = "El Usuario no fue encontrado", result = new JuncalUsuario() == null });
+            return Ok(new { success = false, message = "El Usuario No Existe ", result = new JuncalUsuario() == null });
 
         }
 

@@ -15,7 +15,12 @@ namespace JuncalApi.Mapper
             CreateMap<CamionRequerido, JuncalCamion>();
             CreateMap<JuncalCamion,CamionRespuesta >();
             #endregion
-         
+
+            #region TIPO CAMION
+            CreateMap<TipoCamionRequerido, JuncalTipoCamion>();
+            CreateMap<JuncalTipoCamion, TipoCamionRespuesta>();
+            #endregion
+
             #region CHOFER
             CreateMap<ChoferRequerido,JuncalChofer>();
             CreateMap<JuncalChofer,ChoferRespuesta>();
@@ -50,6 +55,31 @@ namespace JuncalApi.Mapper
             CreateMap<UsuarioRequerido, JuncalUsuario>();
             CreateMap<JuncalUsuario, UsuarioRespuesta>();
             #endregion
+
+            #region CONTRATO
+            CreateMap<ContratoRequerido, JuncalContrato>();
+            CreateMap<JuncalContrato, ContratoRespuesta>();
+            #endregion
+
+            #region CONTRATO ITEM
+
+            CreateMap<ContratoItemRequerido, JuncalContratoItem>();
+            CreateMap<JuncalContratoItem, ContratoItemRespuesta>();
+            #endregion
+
+            #region CONTRATO PRECIO
+            CreateMap<ContratoPrecioRequerido, JuncalContratoPrecio>();
+            CreateMap<JuncalContratoPrecio, ContratoPrecioRespuesta>();
+            #endregion
+
+            #region ESTADO
+            CreateMap<EstadoRequerido, JuncalEstado>();
+            CreateMap<JuncalEstado, EstadoRespuesta>();
+            #endregion
+
+         
+
+
         }
 
 

@@ -16,6 +16,10 @@ builder.Services.AddDbContext<JuncalContext>(mysqlBuilder =>
 { 
     ;
 });
+builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
+{
+    builder.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
+}));
 
 
 builder.Services.AddControllers();
@@ -60,5 +64,5 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-
+app.UseCors("corsapp");
 app.Run();

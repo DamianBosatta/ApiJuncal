@@ -43,7 +43,7 @@ namespace JuncalApi.Controllers
         {
             var aceria = _uow.RepositorioJuncalAcerium.GetById(id);
 
-            if (aceria is null)
+            if (aceria is null|| aceria.Isdeleted== true)
             {
                 return Ok(new { success = false, message = "No Se Encontro La Aceria", result = new AceriaRespuesta() == null });
             }
@@ -61,7 +61,7 @@ namespace JuncalApi.Controllers
         [HttpPost]
         public ActionResult CargarAceria([FromBody] AceriaRequerido aceriaReq)
         {
-            var aceria = _uow.RepositorioJuncalAcerium.GetByCondition(c => c.Cuit.Equals(aceriaReq.Cuit));
+            var aceria = _uow.RepositorioJuncalAcerium.GetByCondition(c => c.Cuit.Equals(aceriaReq.Cuit)&& c.Isdeleted==false);
 
             if (aceria is null)
             {

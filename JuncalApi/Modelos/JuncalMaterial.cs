@@ -7,8 +7,6 @@ public partial class JuncalMaterial
 {
     public int Id { get; set; }
 
-    public string Cod { get; set; } = null!;
-
     public string Nombre { get; set; } = null!;
 
     public bool Isdeleted { get; set; }

@@ -28,7 +28,7 @@ namespace JuncalApi.Controllers
         public async Task<ActionResult<IEnumerable<TransportistaRespuesta>>> GetTransportistas()
         {
 
-            var ListaTransportistas = _uow.RepositorioJuncalTransportistum.GetAll().Where(c=>c.Isdeleted==false).ToList();
+            var ListaTransportistas = _uow.RepositorioJuncalTransportistum.GetAllByCondition(t=>t.Isdeleted==false).ToList();   
 
             if (ListaTransportistas.Count() > 0)
             {
@@ -44,17 +44,16 @@ namespace JuncalApi.Controllers
         [HttpPost]
         public ActionResult CargarTransportista([FromBody] TransportistaRequerido transportistaReq)
         {
-            var transportista = _uow.RepositorioJuncalTransportistum.GetAll(c => c.Cuit.Equals(transportistaReq.Cuit)).SingleOrDefault();
+            var transportista = _uow.RepositorioJuncalTransportistum.GetByCondition(t => t.Cuit.Equals(transportistaReq.Cuit) && t.Isdeleted == false);
 
             if (transportista is null)
             {
                 JuncalTransportistum TransportistaNuevo = _mapper.Map<JuncalTransportistum>(transportistaReq);
-
                 _uow.RepositorioJuncalTransportistum.Insert(TransportistaNuevo);
                 return Ok(new { success = true, message = " El Transportista Fue Creado Con Exito ", result = TransportistaNuevo });
             }
-           else if (transportista.Isdeleted == true) return Ok(new { success = false, message = " El Transportista Ya Existe, Pero Esta Eliminado ", result = transportista });
-           else return Ok(new { success = false, message = " El Transportista Ya Existe ", result = transportista });
+         
+          return Ok(new { success = false, message = " El Transportista Ya Existe ", result = transportista });
 
         }
 

@@ -44,7 +44,7 @@ namespace JuncalApi.Controllers
         [HttpPost]
         public ActionResult CargarChofer([FromBody] ChoferRequerido choferReq)
         {
-            var chofer = _uow.RepositorioJuncalChofer.GetAll(c => c.Dni.Equals(choferReq.Dni)).SingleOrDefault();
+            var chofer = _uow.RepositorioJuncalChofer.GetByCondition(c=>c.Dni.Equals(choferReq.Dni) && c.Isdeleted == false);
 
             if (chofer is null)
             {
@@ -54,8 +54,8 @@ namespace JuncalApi.Controllers
                 return Ok(new { success = true, message = " Chofer Creado Con Exito ", result = choferNuevo });
 
             }
-            else if(chofer.Isdeleted==true) return Ok(new { success = false, message = "El Chofer Ya Existe, Pero Esta Eliminado ", result = chofer });
-            else return Ok(new { success = false, message = "El Chofer Ya Existe ", result = chofer });
+         
+         return Ok(new { success = false, message = "El Chofer Ya Esta Registrado ", result = chofer });
 
         }
 

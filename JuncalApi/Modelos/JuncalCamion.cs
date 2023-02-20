@@ -21,7 +21,11 @@ public partial class JuncalCamion
 
     public bool? Isdeleted { get; set; }
 
+    public int IdTipoCamion { get; set; }
+
     public virtual JuncalChofer? IdChoferNavigation { get; set; }
+
+    public virtual JuncalTipoCamion IdTipoCamionNavigation { get; set; } = null!;
 
     public virtual JuncalTransportistum? IdTransportistaNavigation { get; set; }
 

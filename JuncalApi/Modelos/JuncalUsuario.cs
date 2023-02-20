@@ -19,11 +19,13 @@ public partial class JuncalUsuario
 
     public string Contraseña { get; set; } = null!;
 
-    public string? Sha256 { get; set; }
+    public ulong? PasswordHash { get; set; }
 
     public int? IdRol { get; set; }
 
     public bool Isdeleted { get; set; }
+
+    public ulong PasswordSalt { get; set; }
 
     public virtual JuncalRole? IdRolNavigation { get; set; }
 }

@@ -15,6 +15,8 @@ public partial class JuncalAcerium
 
     public bool? Isdeleted { get; set; }
 
+    public string? CodProveedor { get; set; }
+
     public virtual ICollection<JuncalAceriaMaterial> JuncalAceriaMaterials { get; } = new List<JuncalAceriaMaterial>();
 
     public virtual ICollection<JuncalContrato> JuncalContratos { get; } = new List<JuncalContrato>();
