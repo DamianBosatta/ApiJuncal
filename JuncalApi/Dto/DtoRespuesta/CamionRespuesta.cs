@@ -15,5 +15,7 @@
         public int? IdTransportista { get; set; }
 
         public int? IdInterno { get; set; }
+
+        public int IdTipoCamion { get; set; }
     }
 }
