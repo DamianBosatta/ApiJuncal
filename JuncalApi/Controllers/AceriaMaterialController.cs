@@ -25,7 +25,7 @@ namespace JuncalApi.Controllers
         public async Task<ActionResult<IEnumerable<AceriaMaterialRespuesta>>> GetAceriasMaterial()
         {
 
-            var ListaAceriasMaterial = _uow.RepositorioJuncalAceriaMaterial.GetAll().Where(c => c.Isdeleted == false).ToList();
+            var ListaAceriasMaterial = _uow.RepositorioJuncalAceriaMaterial.GetAllByCondition(c => c.Isdeleted == false).ToList();
 
             if (ListaAceriasMaterial.Count() > 0)
             {

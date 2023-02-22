@@ -27,7 +27,7 @@ namespace JuncalApi.Controllers
         public async Task<ActionResult<IEnumerable<ChoferRespuesta>>> GetChoferes()
         {
 
-            var ListaChoferes = _uow.RepositorioJuncalChofer.GetAll().Where(c=>c.Isdeleted==false).ToList();
+            var ListaChoferes = _uow.RepositorioJuncalChofer.GetAllByCondition(c=>c.Isdeleted==false).ToList();
 
             if (ListaChoferes.Count() > 0)
             {

@@ -41,6 +41,24 @@ namespace JuncalApi.Controllers
 
         }
 
+        [HttpGet("{idContrato}")]
+        public async Task<ActionResult<IEnumerable<ContratoItemRespuesta>>> GetAContratosItemForContrato(int idContrato)
+        {
+
+            var ListaContratosItem = _uow.RepositorioJuncalContratoItem.GetAllByCondition(c => c.IdContrato==idContrato && c.Isdeleted == false);
+
+            if (ListaContratosItem.Count() > 0)
+            {
+                List<ContratoItemRespuesta> listaContratoItemRespuesta = _mapper.Map<List<ContratoItemRespuesta>>(ListaContratosItem);
+                return Ok(new { success = true, message = "La Lista Puede Ser Utilizada", result = listaContratoItemRespuesta });
+
+            }
+            return Ok(new { success = false, message = "La Lista No Contiene Datos", result = new List<ContratoItemRespuesta>() == null });
+
+
+        }
+
+
         [HttpPost]
         public ActionResult CargarContratoItem([FromBody] ContratoItemRequerido contratoItemRequerido)
         {

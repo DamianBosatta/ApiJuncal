@@ -25,7 +25,7 @@ namespace JuncalApi.Controllers
         public async Task<ActionResult<IEnumerable<AceriaRespuesta>>> GetAcerias()
         {
 
-            var ListaAcerias = _uow.RepositorioJuncalAcerium.GetAll().Where(c => c.Isdeleted == false).ToList();
+            var ListaAcerias = _uow.RepositorioJuncalAcerium.GetAllByCondition(c => c.Isdeleted == false).ToList();
 
             if (ListaAcerias.Count() > 0)
             {
