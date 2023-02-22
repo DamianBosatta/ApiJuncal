@@ -8,12 +8,12 @@
 
         public string? Numero { get; set; }
 
-        public DateOnly? FechaVigencia { get; set; }
+        public DateTime FechaVigencia { get; set; }
 
         public int? IdAceria { get; set; }
 
         public bool Activo { get; set; }
 
-        public bool Isdeleted { get; set; }
+
     }
 }

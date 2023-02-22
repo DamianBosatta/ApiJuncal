@@ -4,20 +4,19 @@
     {
 
 
-        public string Usuario { get; set; } = null!;
+        public string Usuario { get; set; } = string.Empty;
+       
+        public string Contraseña { get; set; } = String.Empty;
 
-        public string Nombre { get; set; } = null!;
+        public string Nombre { get; set; } = string.Empty ;
 
-        public string Apellido { get; set; } = null!;
+        public string Apellido { get; set; } = string.Empty;
 
         public int Dni { get; set; }
 
-        public string Email { get; set; } = null!;
-
-        public string Contraseña { get; set; } = null!;
-
-        public string? Sha256 { get; set; }
-
+        public string Email { get; set; } = string.Empty;
+       
         public int? IdRol { get; set; }
+
     }
 }

@@ -38,6 +38,26 @@ namespace JuncalApi.Controllers
 
         }
 
+
+
+        [HttpGet("{idAceria}")]
+        public async Task<ActionResult<IEnumerable<AceriaMaterialRespuesta>>> GetAceriasMaterialForAceria(int idAceria)
+        {
+
+            var ListaAceriasMaterial = _uow.RepositorioJuncalAceriaMaterial.GetAllByCondition(c =>c.IdAceria==idAceria && c.Isdeleted==false).ToList();
+
+            if (ListaAceriasMaterial.Count() > 0)
+            {
+                List<AceriaMaterialRespuesta> listaAceriasMatRespuesta = _mapper.Map<List<AceriaMaterialRespuesta>>(ListaAceriasMaterial);
+                return Ok(new { success = true, message = "La Lista Esta Lista Para Ser Utilizada", result = listaAceriasMatRespuesta });
+
+            }
+            return Ok(new { success = false, message = "La Lista No Contiene Datos", result = new List<AceriaMaterialRespuesta>() == null });
+
+
+        }
+
+
         [HttpPost]
         public ActionResult CargarAceriaMaterial([FromBody] AceriaMaterialRequerido aceriaMatRequerido)
         {

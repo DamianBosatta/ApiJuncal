@@ -4,6 +4,7 @@ using JuncalApi.Dto.DtoRespuesta;
 using JuncalApi.Modelos;
 using JuncalApi.UnidadDeTrabajo;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace JuncalApi.Controllers
 {
@@ -40,14 +41,13 @@ namespace JuncalApi.Controllers
         }
 
         [HttpPost]
-        public ActionResult CargarContrato([FromBody] ContratoRequerido contratoRequerido)
+        public ActionResult CargarContrato (ContratoRequerido contratoRequerido)
         {
             var contrato = _uow.RepositorioJuncalContrato.GetByCondition(c => c.Numero.Equals(contratoRequerido.Numero) && c.Isdeleted == false);
 
             if (contrato is null)
             {
-                JuncalContrato contratoNuevo = _mapper.Map<JuncalContrato>(contratoRequerido);
-
+                JuncalContrato contratoNuevo = _mapper.Map<JuncalContrato>(contratoRequerido);                              
                 _uow.RepositorioJuncalContrato.Insert(contratoNuevo);
                 return Ok(new { success = true, message = "El Contrato Fue Creado Con Exito ", result = contratoNuevo });
             }

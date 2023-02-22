@@ -47,33 +47,35 @@ namespace JuncalApi.Controllers
         [HttpPost]
         public ActionResult RegistrarUsuario([FromBody] UsuarioRequerido usuarioReq)
         {
-            var usuario = _uow.RepositorioJuncalUsuario.GetByCondition(c => c.Dni.Equals(usuarioReq.Dni)&& c.Isdeleted==false);
+           
+            
+           var usuarioExiste = _uow.RepositorioJuncalUsuario.GetByCondition(c => c.Dni.Equals(usuarioReq.Dni)&& c.Isdeleted==false);
 
-            if (usuario is null)
+            if (usuarioExiste is null)
             {
-                JuncalUsuario usuarioNuevo = _mapper.Map<JuncalUsuario>(usuarioReq);
-                _uow.RepositorioJuncalUsuario.Insert(usuarioNuevo);
-                return Ok(new { success = true, message = "El Usuario fue Creado Con Exito", result = usuarioNuevo });
+                var usuario = _servicio.RegistroUsuario(usuarioReq);
+                _uow.RepositorioJuncalUsuario.Insert(usuario);
+                return Ok(new { success = true, message = "El Usuario fue Creado Con Exito", result = usuario });
             }
            
              return Ok(new { success = false, message = " El Usuario Ya Esta Registrado ", result = new JuncalUsuario()==null });
 
         }
 
-        [HttpPost]
+        [HttpPost("{login}")]
         public ActionResult Login([FromBody] LoginRequerido userReq)
         {
-          var Sesion = _servicio.InicioSesion(userReq);
+            var Sesion = _servicio.InicioSesion(userReq);
 
-            if (Sesion is "") 
-            { 
+            if (Sesion == string.Empty)
+            {
 
-             return Ok(new { success = false, message = " El Usuario o Contraseña Fue Invalido ", result = Sesion });
+                return Ok(new { success = false, message = " El Usuario o Contraseña Fue Invalido ", result = Sesion });
 
-             }
+            }
 
-            return Ok(new { success = true, message = "Inicio de Sesion Aceptado", result = Sesion});
-          
+            return Ok(new { success = true, message = "Inicio de Sesion Aceptado", result = Sesion });
+
         }
 
 
