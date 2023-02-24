@@ -77,7 +77,25 @@ namespace JuncalApi.Mapper
             CreateMap<JuncalEstado, EstadoRespuesta>();
             #endregion
 
-         
+            #region PROVEEDOR
+            CreateMap<ProveedorRequerido, JuncalProveedor>();
+            CreateMap<JuncalProveedor, ProveedorRespuesta>();
+            #endregion
+
+            #region MATERIAL PROVEEDOR
+            CreateMap<MaterialProveedorRequerido, JuncalMaterialProveedor>();
+            CreateMap<JuncalMaterialProveedor, MaterialProveedorRespuesta>();
+            #endregion
+
+            #region ORDEN
+            CreateMap<OrdenRequerido, JuncalOrden>();
+            CreateMap<JuncalOrden, OrdenRespuesta>();
+            #endregion
+
+            #region ORDEN MATERIAL
+            CreateMap<OrdenMaterialRequerido, JuncalOrdenMarterial>();
+            CreateMap<JuncalOrdenMarterial, OrdenMaterialRespuesta>();
+            #endregion
 
 
         }

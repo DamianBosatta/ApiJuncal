@@ -14,4 +14,6 @@ public partial class JuncalProveedor
     public bool Isdeleted { get; set; }
 
     public virtual ICollection<JuncalMaterialProveedor> JuncalMaterialProveedors { get; } = new List<JuncalMaterialProveedor>();
+
+    public virtual ICollection<JuncalOrden> JuncalOrdens { get; } = new List<JuncalOrden>();
 }

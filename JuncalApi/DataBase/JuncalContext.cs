@@ -393,6 +393,8 @@ public partial class JuncalContext : DbContext
 
             entity.ToTable("juncal.orden");
 
+            entity.HasIndex(e => e.IdProveedor, "fk_id_proveedor");
+
             entity.HasIndex(e => e.IdAceria, "fk_orden_aceria");
 
             entity.HasIndex(e => e.IdCamion, "fk_orden_camion");
@@ -417,6 +419,9 @@ public partial class JuncalContext : DbContext
             entity.Property(e => e.IdEstado)
                 .HasColumnType("int(11)")
                 .HasColumnName("id_estado");
+            entity.Property(e => e.IdProveedor)
+                .HasColumnType("int(200)")
+                .HasColumnName("id_proveedor");
             entity.Property(e => e.Isdeleted)
                 .HasDefaultValueSql("'0'")
                 .HasColumnName("isdeleted");
@@ -441,6 +446,10 @@ public partial class JuncalContext : DbContext
                 .HasForeignKey(d => d.IdEstado)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("fk_orden_estados");
+
+            entity.HasOne(d => d.IdProveedorNavigation).WithMany(p => p.JuncalOrdens)
+                .HasForeignKey(d => d.IdProveedor)
+                .HasConstraintName("fk_id_proveedor");
         });
 
         modelBuilder.Entity<JuncalOrdenMarterial>(entity =>
@@ -563,9 +572,6 @@ public partial class JuncalContext : DbContext
             entity.Property(e => e.Apellido)
                 .HasMaxLength(255)
                 .HasColumnName("apellido");
-            entity.Property(e => e.Contraseña)
-                .HasMaxLength(255)
-                .HasColumnName("contraseña");
             entity.Property(e => e.Dni)
                 .HasColumnType("int(11)")
                 .HasColumnName("dni");

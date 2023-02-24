@@ -1,9 +1,7 @@
 ﻿namespace JuncalApi.Dto.DtoRequerido
 {
     public class AceriaMaterialRequerido
-    {
-       
-
+    {       
         public string Nombre { get; set; } 
 
         public int IdAceria { get; set; }

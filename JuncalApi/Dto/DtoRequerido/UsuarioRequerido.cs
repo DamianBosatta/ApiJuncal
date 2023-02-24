@@ -2,8 +2,6 @@
 {
     public class UsuarioRequerido
     {
-
-
         public string Usuario { get; set; } = string.Empty;
        
         public string Contraseña { get; set; } = String.Empty;

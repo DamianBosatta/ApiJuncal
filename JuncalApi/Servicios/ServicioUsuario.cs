@@ -117,7 +117,7 @@ namespace JuncalApi.Servicios
             user.Email = userReq.Email;
             user.PasswordHash = BitConverter.ToUInt64(passwordHash, 0);       
             user.PasswordSalt = BitConverter.ToUInt64(passwordSalt, 0);
-            user.Contraseña = userReq.Contraseña;
+            
             return user;
 
         }
@@ -131,10 +131,10 @@ namespace JuncalApi.Servicios
                 return " El Usuario No Existe";
             }
 
-            if (!VerificarPassworHash(userReq.Contraseña, BitConverter.GetBytes(user.PasswordHash), BitConverter.GetBytes(user.PasswordHash)))
+            if (!VerificarPassworHash(userReq.Contraseña, BitConverter.GetBytes((Half)user.PasswordHash) , BitConverter.GetBytes(user.PasswordSalt)))
             {
                 return "Password Incorrecto";
-
+                //,BitConverter.GetBytes())
             }
 
             return "Token";

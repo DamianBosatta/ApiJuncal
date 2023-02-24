@@ -1,9 +1,7 @@
 ﻿namespace JuncalApi.Dto.DtoRequerido
 {
     public class ContratoRequerido
-    {
-       
-
+    {      
         public string Nombre { get; set; } = null!;
 
         public string? Numero { get; set; }

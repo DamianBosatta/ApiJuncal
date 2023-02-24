@@ -17,9 +17,11 @@ public partial class JuncalOrden
 
     public int IdEstado { get; set; }
 
-    public DateOnly Fecha { get; set; }
+    public DateTime Fecha { get; set; }
 
     public bool? Isdeleted { get; set; }
+
+    public int? IdProveedor { get; set; }
 
     public virtual JuncalAcerium IdAceriaNavigation { get; set; } = null!;
 
@@ -28,6 +30,8 @@ public partial class JuncalOrden
     public virtual JuncalContrato? IdContratoNavigation { get; set; }
 
     public virtual JuncalEstado IdEstadoNavigation { get; set; } = null!;
+
+    public virtual JuncalProveedor? IdProveedorNavigation { get; set; }
 
     public virtual ICollection<JuncalOrdenMarterial> JuncalOrdenMarterials { get; } = new List<JuncalOrdenMarterial>();
 }
