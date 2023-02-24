@@ -17,7 +17,7 @@ public partial class JuncalUsuario
 
     public string Email { get; set; } = null!;
 
-    public ulong? PasswordHash { get; set; }
+    public ulong PasswordHash { get; set; }
 
     public int? IdRol { get; set; }
 

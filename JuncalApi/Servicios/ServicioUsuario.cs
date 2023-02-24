@@ -131,7 +131,7 @@ namespace JuncalApi.Servicios
                 return " El Usuario No Existe";
             }
 
-            if (!VerificarPassworHash(userReq.Contraseña, BitConverter.GetBytes((Half)user.PasswordHash) , BitConverter.GetBytes(user.PasswordSalt)))
+            if (!VerificarPassworHash(userReq.Contraseña, BitConverter.GetBytes(user.PasswordHash) , BitConverter.GetBytes(user.PasswordSalt)))
             {
                 return "Password Incorrecto";
                 //,BitConverter.GetBytes())
