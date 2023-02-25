@@ -4,6 +4,7 @@ using JuncalApi.Dto.DtoRespuesta;
 using JuncalApi.Modelos;
 using JuncalApi.UnidadDeTrabajo;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace JuncalApi.Controllers
 {
@@ -40,20 +41,23 @@ namespace JuncalApi.Controllers
 
 
         [HttpPost]
-        public ActionResult CargarOrdenMaterial([FromBody] OrdenMaterialRequerido ordenMaterialReq)
+        public ActionResult CargarOrdenMaterial([FromBody] List<OrdenMaterialRequerido> listOrdenMaterialReq)
         {
-            var ordenMaterial = _uow.RepositorioJuncalOrdenMarterial.GetByCondition(c => c.IdOrden == ordenMaterialReq.IdOrden
-            && c.IdMaterial == ordenMaterialReq.IdMaterial
-            && c.Isdeleted == false);
-
-            if (ordenMaterial is null)
+            JuncalOrdenMarterial ordenMaterialNuevo = new();
+            foreach (var item in listOrdenMaterialReq)
             {
-                JuncalOrdenMarterial ordenMaterialNuevo = _mapper.Map<JuncalOrdenMarterial>(ordenMaterialReq);
+               ordenMaterialNuevo= _mapper.Map<JuncalOrdenMarterial>(item);
                 _uow.RepositorioJuncalOrdenMarterial.Insert(ordenMaterialNuevo);
-                return Ok(new { success = true, message = "La Orden Material Fue Creado Con Exito", result = ordenMaterialNuevo });
+            }            
+            
+            if(listOrdenMaterialReq.Count() > 0)
+            {
+                return Ok(new { success = true, message = "La Lista Orden Material Fue Creado Con Exito", result = Ok() }) ;
             }
 
-            return Ok(new { success = false, message = " La Orden Material Ya Esta Cargada ", result = ordenMaterial });
+
+            return Ok(new { success = false, message = " Ocurrio Un Error En La Carga ", result =  new List<OrdenMaterialRespuesta>()==null });
+
 
         }
 

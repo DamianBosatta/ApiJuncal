@@ -59,23 +59,24 @@ namespace JuncalApi.Controllers
 
 
         [HttpPost]
-        public ActionResult CargarContratoPrecio([FromBody] ContratoPrecioRequerido contratoPrecioRequerido)
+        public ActionResult CargarContratoPrecio([FromBody] List<ContratoPrecioRequerido> listContratoPrecioRequerido)
         {
-            var contratoPrecio = _uow.RepositorioJuncalContratoPrecio.GetByCondition(c => 
-            c.IdItem.Equals(contratoPrecioRequerido.IdItem)
-            && c.Isdeleted == false
-            && c.IdMaterialAceria.Equals(contratoPrecioRequerido.IdMaterialAceria)
-            && c.Precio.Equals(contratoPrecioRequerido.Precio));
+            JuncalContratoPrecio contratoPrecioNuevo = new();
 
-            if (contratoPrecio is null)
+            foreach(var item in listContratoPrecioRequerido)
             {
-                JuncalContratoPrecio contratoPrecioNuevo = _mapper.Map<JuncalContratoPrecio>(contratoPrecioRequerido);
-
+                contratoPrecioNuevo = _mapper.Map<JuncalContratoPrecio>(item);
                 _uow.RepositorioJuncalContratoPrecio.Insert(contratoPrecioNuevo);
-                return Ok(new { success = true, message = "El Contrato Precio Fue Creado Con Exito ", result = contratoPrecioNuevo });
+
+            }
+            if(listContratoPrecioRequerido.Count() > 0)
+            {
+                return Ok(new { success = true, message = "La Lista De Contrato Precio Fue Creado Con Exito ", result = Ok() });
+
             }
 
-            return Ok(new { success = false, message = " El Contrato Precio Ya Esta Cargado ", result = contratoPrecio });
+
+            return Ok(new { success = false, message = " Ocurrio Un Error En La Carga ", result = new List <ContratoPrecioRespuesta>()==null });
 
         }
 

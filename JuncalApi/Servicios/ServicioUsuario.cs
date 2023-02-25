@@ -134,7 +134,7 @@ namespace JuncalApi.Servicios
             if (!VerificarPassworHash(userReq.Contraseña, BitConverter.GetBytes(user.PasswordHash) , BitConverter.GetBytes(user.PasswordSalt)))
             {
                 return "Password Incorrecto";
-                //,BitConverter.GetBytes())
+               
             }
 
             return "Token";
