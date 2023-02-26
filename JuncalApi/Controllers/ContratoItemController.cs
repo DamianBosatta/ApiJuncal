@@ -60,26 +60,26 @@ namespace JuncalApi.Controllers
 
 
         [HttpPost]
-        public ActionResult CargarContratoItem([FromBody] ContratoItemRequerido contratoItemRequerido)
+        public ActionResult CargarContratoItem([FromBody] List<ContratoItemRequerido> listaContratoItemRequerido)
         {
-           
-
-         
-            
-                JuncalContratoItem contratoItemNuevo = _mapper.Map<JuncalContratoItem>(contratoItemRequerido);
-
-            if (contratoItemNuevo != null)
+            JuncalContratoItem contratoItemNuevo = new JuncalContratoItem();
+          
+            if (listaContratoItemRequerido.Count() > 0)
             {
-                _uow.RepositorioJuncalContratoItem.Insert(contratoItemNuevo);
 
-                return Ok(new { success = true, message = "El Contrato Item Fue Creado Con Exito ", result = contratoItemNuevo });
+
+                foreach(var item in listaContratoItemRequerido)
+                {
+                    contratoItemNuevo= _mapper.Map<JuncalContratoItem>(item);
+                    _uow.RepositorioJuncalContratoItem.Insert(contratoItemNuevo);
+                }
+
+                return Ok(new { success = true, message = "La Lista Contrato Item Fue Cargada Con Exito ", result = contratoItemNuevo });
 
             }
 
-         
-         
+            return Ok(new { success = false, message = " Carga De Data Invalida", result = new ContratoItemRespuesta() == null });
 
-                return Ok(new { success = false, message = " Carga De Data Invalida", result = new ContratoItemRespuesta()==null });
 
         }
 

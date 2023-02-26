@@ -62,7 +62,7 @@ namespace JuncalApi.Controllers
 
         }
 
-        [HttpPost("{login}")]
+        [HttpPost]
         public ActionResult Login([FromBody] LoginRequerido userReq)
         {
             var Sesion = _servicio.InicioSesion(userReq);
