@@ -23,7 +23,11 @@ public partial class JuncalOrden
 
     public int? IdProveedor { get; set; }
 
+    public int? IdAcoplado { get; set; }
+
     public virtual JuncalAcerium IdAceriaNavigation { get; set; } = null!;
+
+    public virtual JuncalAcoplado? IdAcopladoNavigation { get; set; }
 
     public virtual JuncalCamion? IdCamionNavigation { get; set; }
 

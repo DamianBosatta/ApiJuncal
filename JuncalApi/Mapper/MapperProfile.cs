@@ -68,8 +68,8 @@ namespace JuncalApi.Mapper
             #endregion
 
             #region CONTRATO PRECIO
-            CreateMap<ContratoPrecioRequerido, JuncalContratoPrecio>();
-            CreateMap<JuncalContratoPrecio, ContratoPrecioRespuesta>();
+            CreateMap<AcopladoRequerido, JuncalAcoplado>();
+            CreateMap<JuncalAcoplado, AcopladoRespuesta>();
             #endregion
 
             #region ESTADO

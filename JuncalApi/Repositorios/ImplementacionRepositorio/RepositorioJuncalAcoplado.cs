@@ -4,9 +4,9 @@ using JuncalApi.Repositorios.InterfaceRepositorio;
 
 namespace JuncalApi.Repositorios.ImplementacionRepositorio
 {
-    public class RepositorioJuncalContratoPrecio:RepositorioGenerico<JuncalContratoPrecio>,IRepositorioJuncalContratoPrecio
+    public class RepositorioJuncalAcoplado:RepositorioGenerico<JuncalAcoplado>,IRepositorioJuncalAcoplado
     {
-        public RepositorioJuncalContratoPrecio(JuncalContext db) : base(db)
+        public RepositorioJuncalAcoplado(JuncalContext db) : base(db)
         {
         }
     }

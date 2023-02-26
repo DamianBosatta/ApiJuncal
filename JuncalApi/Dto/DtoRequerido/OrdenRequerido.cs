@@ -1,8 +1,9 @@
 ﻿namespace JuncalApi.Dto.DtoRequerido
 {
     public class OrdenRequerido
-    {      
-       public int IdAceria { get; set; }
+    {
+
+        public int IdAceria { get; set; }
 
         public int? IdContrato { get; set; }
 
@@ -14,6 +15,10 @@
 
         public DateTime Fecha { get; set; }
 
+        public bool? Isdeleted { get; set; }
+
         public int? IdProveedor { get; set; }
+
+        public int? IdAcoplado { get; set; }
     }
 }

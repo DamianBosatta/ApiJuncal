@@ -2,9 +2,12 @@
 {
     public class ContratoItemRequerido
     {
+       public int IdContrato { get; set; }
 
-        public int IdContrato { get; set; }
+        public bool Isdeleted { get; set; }
 
-        public string Nombre { get; set; } = null!;
+        public int IdMaterial { get; set; }
+
+        public decimal Precio { get; set; }
     }
 }

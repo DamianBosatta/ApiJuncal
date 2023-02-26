@@ -2,7 +2,7 @@
 
 namespace JuncalApi.Repositorios.InterfaceRepositorio
 {
-    public interface IRepositorioJuncalContratoPrecio:IRepositorioGenerico<JuncalContratoPrecio>
+    public interface IRepositorioJuncalAcoplado:IRepositorioGenerico<JuncalAcoplado>
     {
     }
 }

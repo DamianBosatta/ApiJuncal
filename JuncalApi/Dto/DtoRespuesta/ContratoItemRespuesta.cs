@@ -6,6 +6,10 @@
 
         public int IdContrato { get; set; }
 
-        public string Nombre { get; set; } = null!;
+        public bool Isdeleted { get; set; }
+
+        public int IdMaterial { get; set; }
+
+        public decimal Precio { get; set; }
     }
 }

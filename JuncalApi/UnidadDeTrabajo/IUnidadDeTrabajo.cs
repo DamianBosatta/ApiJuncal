@@ -10,7 +10,7 @@ namespace JuncalApi.UnidadDeTrabajo
         IRepositorioJuncalChofer RepositorioJuncalChofer { get; }
         IRepositorioJuncalContrato RepositorioJuncalContrato { get; }
         IRepositorioJuncalContratoItem RepositorioJuncalContratoItem { get; }
-        IRepositorioJuncalContratoPrecio RepositorioJuncalContratoPrecio { get; }
+        IRepositorioJuncalAcoplado RepositorioJuncalAcoplado { get; }
         IRepositorioJuncalEstado RepositorioJuncalEstado { get; }
         IRepositorioJuncalMaterial RepositorioJuncalMaterial { get; }
         IRepositorioJuncalMaterialProveedor RepositorioJuncalMaterialProveedor { get; }

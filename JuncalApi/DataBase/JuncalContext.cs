@@ -20,6 +20,8 @@ public partial class JuncalContext : DbContext
 
     public virtual DbSet<JuncalAcerium> JuncalAceria { get; set; }
 
+    public virtual DbSet<JuncalAcoplado> JuncalAcoplados { get; set; }
+
     public virtual DbSet<JuncalCamion> JuncalCamions { get; set; }
 
     public virtual DbSet<JuncalChofer> JuncalChofers { get; set; }
@@ -27,8 +29,6 @@ public partial class JuncalContext : DbContext
     public virtual DbSet<JuncalContrato> JuncalContratos { get; set; }
 
     public virtual DbSet<JuncalContratoItem> JuncalContratoItems { get; set; }
-
-    public virtual DbSet<JuncalContratoPrecio> JuncalContratoPrecios { get; set; }
 
     public virtual DbSet<JuncalEstado> JuncalEstados { get; set; }
 
@@ -133,6 +133,20 @@ public partial class JuncalContext : DbContext
                 .HasColumnName("nombre");
         });
 
+        modelBuilder.Entity<JuncalAcoplado>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PRIMARY");
+
+            entity.ToTable("juncal.acoplado");
+
+            entity.Property(e => e.Id)
+                .HasColumnType("int(11)")
+                .HasColumnName("id");
+            entity.Property(e => e.Patente)
+                .HasMaxLength(255)
+                .HasColumnName("patente");
+        });
+
         modelBuilder.Entity<JuncalCamion>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
@@ -234,6 +248,7 @@ public partial class JuncalContext : DbContext
                 .HasColumnType("int(11)")
                 .HasColumnName("id");
             entity.Property(e => e.Activo).HasColumnName("activo");
+            entity.Property(e => e.FechaVencimiento).HasColumnName("fecha_vencimiento");
             entity.Property(e => e.FechaVigencia).HasColumnName("fecha_vigencia");
             entity.Property(e => e.IdAceria)
                 .HasColumnType("int(11)")
@@ -259,56 +274,31 @@ public partial class JuncalContext : DbContext
 
             entity.HasIndex(e => e.IdContrato, "fk_contrato_items_contrato");
 
+            entity.HasIndex(e => e.IdMaterial, "fk_id_material");
+
             entity.Property(e => e.Id)
                 .HasColumnType("int(11)")
                 .HasColumnName("id");
             entity.Property(e => e.IdContrato)
                 .HasColumnType("int(11)")
                 .HasColumnName("id_contrato");
-            entity.Property(e => e.Isdeleted).HasColumnName("isdeleted");
-            entity.Property(e => e.Nombre)
-                .HasMaxLength(255)
-                .HasColumnName("nombre");
-
-            entity.HasOne(d => d.IdContratoNavigation).WithMany(p => p.JuncalContratoItems)
-                .HasForeignKey(d => d.IdContrato)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("fk_contrato_items_contrato");
-        });
-
-        modelBuilder.Entity<JuncalContratoPrecio>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PRIMARY");
-
-            entity.ToTable("juncal.contrato_precio");
-
-            entity.HasIndex(e => e.IdMaterialAceria, "fk_contrato_precio_aceria_material");
-
-            entity.HasIndex(e => e.IdItem, "fk_contrato_precio_contrato_items");
-
-            entity.Property(e => e.Id)
-                .HasColumnType("int(11)")
-                .HasColumnName("id");
-            entity.Property(e => e.IdItem)
-                .HasColumnType("int(11)")
-                .HasColumnName("id_item");
-            entity.Property(e => e.IdMaterialAceria)
-                .HasColumnType("int(11)")
-                .HasColumnName("id_material_aceria");
+            entity.Property(e => e.IdMaterial)
+                .HasColumnType("int(200)")
+                .HasColumnName("id_material");
             entity.Property(e => e.Isdeleted).HasColumnName("isdeleted");
             entity.Property(e => e.Precio)
                 .HasPrecision(10)
                 .HasColumnName("precio");
 
-            entity.HasOne(d => d.IdItemNavigation).WithMany(p => p.JuncalContratoPrecios)
-                .HasForeignKey(d => d.IdItem)
+            entity.HasOne(d => d.IdContratoNavigation).WithMany(p => p.JuncalContratoItems)
+                .HasForeignKey(d => d.IdContrato)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("fk_contrato_precio_contrato_items");
+                .HasConstraintName("fk_contrato_items_contrato");
 
-            entity.HasOne(d => d.IdMaterialAceriaNavigation).WithMany(p => p.JuncalContratoPrecios)
-                .HasForeignKey(d => d.IdMaterialAceria)
+            entity.HasOne(d => d.IdMaterialNavigation).WithMany(p => p.JuncalContratoItems)
+                .HasForeignKey(d => d.IdMaterial)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("fk_contrato_precio_aceria_material");
+                .HasConstraintName("fk_id_material");
         });
 
         modelBuilder.Entity<JuncalEstado>(entity =>
@@ -393,6 +383,8 @@ public partial class JuncalContext : DbContext
 
             entity.ToTable("juncal.orden");
 
+            entity.HasIndex(e => e.IdAcoplado, "fk_id_acoplado");
+
             entity.HasIndex(e => e.IdProveedor, "fk_id_proveedor");
 
             entity.HasIndex(e => e.IdAceria, "fk_orden_aceria");
@@ -410,6 +402,9 @@ public partial class JuncalContext : DbContext
             entity.Property(e => e.IdAceria)
                 .HasColumnType("int(11)")
                 .HasColumnName("id_aceria");
+            entity.Property(e => e.IdAcoplado)
+                .HasColumnType("int(200)")
+                .HasColumnName("id_acoplado");
             entity.Property(e => e.IdCamion)
                 .HasColumnType("int(11)")
                 .HasColumnName("id_camion");
@@ -433,6 +428,10 @@ public partial class JuncalContext : DbContext
                 .HasForeignKey(d => d.IdAceria)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("fk_orden_aceria");
+
+            entity.HasOne(d => d.IdAcopladoNavigation).WithMany(p => p.JuncalOrdens)
+                .HasForeignKey(d => d.IdAcoplado)
+                .HasConstraintName("fk_id_acoplado");
 
             entity.HasOne(d => d.IdCamionNavigation).WithMany(p => p.JuncalOrdens)
                 .HasForeignKey(d => d.IdCamion)

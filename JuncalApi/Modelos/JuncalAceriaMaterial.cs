@@ -23,5 +23,5 @@ public partial class JuncalAceriaMaterial
 
     public virtual JuncalMaterial IdMaterialNavigation { get; set; } = null!;
 
-    public virtual ICollection<JuncalContratoPrecio> JuncalContratoPrecios { get; } = new List<JuncalContratoPrecio>();
+    public virtual ICollection<JuncalContratoItem> JuncalContratoItems { get; } = new List<JuncalContratoItem>();
 }

@@ -19,7 +19,7 @@ namespace JuncalApi.UnidadDeTrabajo
             this.RepositorioJuncalChofer=new RepositorioJuncalChofer(context);
             this.RepositorioJuncalContrato= new RepositorioJuncalContrato(context);
             this.RepositorioJuncalContratoItem= new RepositorioJuncalContratoItem(context);
-            this.RepositorioJuncalContratoPrecio=new RepositorioJuncalContratoPrecio(context);
+            this.RepositorioJuncalAcoplado=new RepositorioJuncalAcoplado(context);
             this.RepositorioJuncalEstado=new RepositorioJuncalEstado(context);
             this.RepositorioJuncalMaterial=new RepositorioJuncalMaterial(context);
             this.RepositorioJuncalMaterialProveedor=new RepositorioJuncalMaterialProveedor(context);
@@ -52,7 +52,7 @@ namespace JuncalApi.UnidadDeTrabajo
         public IRepositorioJuncalContratoItem RepositorioJuncalContratoItem { get; private set; }
 
 
-        public IRepositorioJuncalContratoPrecio RepositorioJuncalContratoPrecio { get; private set; }
+        public IRepositorioJuncalAcoplado RepositorioJuncalAcoplado { get; private set; }
 
 
         public IRepositorioJuncalEstado RepositorioJuncalEstado { get; private set; }
