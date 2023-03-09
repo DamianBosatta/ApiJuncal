@@ -14,7 +14,7 @@
 
         public int IdEstado { get; set; }
 
-        public DateOnly Fecha { get; set; }
+        public DateTime Fecha { get; set; }
 
         public int? IdProveedor { get; set; }
 

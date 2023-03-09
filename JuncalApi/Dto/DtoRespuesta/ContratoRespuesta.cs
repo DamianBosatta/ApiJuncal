@@ -8,9 +8,9 @@
 
         public string? Numero { get; set; }
 
-        public DateOnly? FechaVigencia { get; set; }
+        public DateTime FechaVigencia { get; set; }
 
-        public DateOnly? FechaVencimiento { get; set; }
+        public DateTime FechaVencimiento { get; set; }
 
         public int? IdAceria { get; set; }
 
