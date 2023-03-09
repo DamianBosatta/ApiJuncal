@@ -43,7 +43,8 @@ namespace JuncalApi.Controllers
         [HttpPost]
         public ActionResult CargarContrato (ContratoRequerido contratoRequerido)
         {
-            var contrato = _uow.RepositorioJuncalContrato.GetByCondition(c => c.Numero.Equals(contratoRequerido.Numero) && c.Isdeleted == false);
+            var contrato = _uow.RepositorioJuncalContrato.GetByCondition(c => c.IdAceria==contratoRequerido.IdAceria && c.Isdeleted == false
+            && c.FechaVigencia>= DateTime.Now && c.FechaVencimiento <= DateTime.Now);
 
             if (contrato is null)
             {
@@ -52,7 +53,7 @@ namespace JuncalApi.Controllers
                 return Ok(new { success = true, message = "El Contrato Fue Creado Con Exito ", result = contratoNuevo });
             }
 
-            return Ok(new { success = false, message = " El Contrato Ya Esta Cargado ", result = contrato });
+            return Ok(new { success = false, message = " La Aceria Ya Tiene Un Contrato Vigente ", result = contrato });
 
         }
 

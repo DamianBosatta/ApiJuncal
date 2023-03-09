@@ -2,6 +2,7 @@
 {
     public class CamionRequerido
     {
+      
         public string Patente { get; set; } = null!;
 
         public string? Marca { get; set; }
@@ -12,8 +13,8 @@
 
         public int? IdTransportista { get; set; }
 
-        public int? IdInterno { get; set; }
-        
+        public int? IdInterno { get; set; }   
+
         public int IdTipoCamion { get; set; }
     }
 }

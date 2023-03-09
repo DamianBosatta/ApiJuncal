@@ -49,7 +49,7 @@ namespace JuncalApi.Controllers
         {
            
             
-           var usuarioExiste = _uow.RepositorioJuncalUsuario.GetByCondition(c => c.Dni.Equals(usuarioReq.Dni)&& c.Isdeleted==false);
+           var usuarioExiste = _uow.RepositorioJuncalUsuario.GetByCondition(c => c.Dni.Equals(usuarioReq.Dni) && c.Isdeleted==false || c.Usuario.Equals(usuarioReq.Usuario));
 
             if (usuarioExiste is null)
             {
@@ -65,16 +65,16 @@ namespace JuncalApi.Controllers
         [HttpPost]
         public ActionResult Login([FromBody] LoginRequerido userReq)
         {
-            var Sesion = _servicio.InicioSesion(userReq);
-
-            if (Sesion == string.Empty)
+            var sesion = _servicio.InicioSesion(userReq);
+                               
+            if (sesion != null)
             {
-
-                return Ok(new { success = false, message = " El Usuario o Contraseña Fue Invalido ", result = Sesion });
+                return Ok(new { success = true, message = " Sesion Correcta", result = sesion });
 
             }
 
-            return Ok(new { success = true, message = "Inicio de Sesion Aceptado", result = Sesion });
+
+            return Ok(new { success = false, message = " Datos Ingresados son invalidos ", result = new JuncalUsuario() == null });
 
         }
 

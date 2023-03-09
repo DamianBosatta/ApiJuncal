@@ -17,13 +17,13 @@ public partial class JuncalUsuario
 
     public string Email { get; set; } = null!;
 
-    public ulong PasswordHash { get; set; }
+    public string? PasswordHash { get; set; }
 
     public int? IdRol { get; set; }
 
     public bool Isdeleted { get; set; }
 
-    public ulong PasswordSalt { get; set; }
+    public string PasswordSalt { get; set; } = null!;
 
     public virtual JuncalRole? IdRolNavigation { get; set; }
 }

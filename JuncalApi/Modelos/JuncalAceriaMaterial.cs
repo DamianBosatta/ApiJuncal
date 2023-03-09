@@ -13,8 +13,6 @@ public partial class JuncalAceriaMaterial
 
     public int IdMaterial { get; set; }
 
-    public decimal? Precio { get; set; }
-
     public string Cod { get; set; } = null!;
 
     public bool Isdeleted { get; set; }

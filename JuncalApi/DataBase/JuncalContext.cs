@@ -44,6 +44,8 @@ public partial class JuncalContext : DbContext
 
     public virtual DbSet<JuncalRole> JuncalRoles { get; set; }
 
+    public virtual DbSet<JuncalSucursal> JuncalSucursals { get; set; }
+
     public virtual DbSet<JuncalTipoCamion> JuncalTipoCamions { get; set; }
 
     public virtual DbSet<JuncalTransportistum> JuncalTransportista { get; set; }
@@ -52,7 +54,7 @@ public partial class JuncalContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseMySql("server=sd-1812852-l.dattaweb.com;database=nicoales_nuevo;uid=nicoales_felix;pwd=Idra2023", ServerVersion.Parse("5.7.30-mysql"));
+        => optionsBuilder.UseMySql("server=sd-1812852-l.dattaweb.com;database=nicoales_nuevo;uid=nicoales_felix;pwd=Idra2023", Microsoft.EntityFrameworkCore.ServerVersion.Parse("5.7.30-mysql"));
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -89,9 +91,6 @@ public partial class JuncalContext : DbContext
             entity.Property(e => e.Nombre)
                 .HasMaxLength(255)
                 .HasColumnName("nombre");
-            entity.Property(e => e.Precio)
-                .HasPrecision(10)
-                .HasColumnName("precio");
 
             entity.HasOne(d => d.IdAceriaNavigation).WithMany(p => p.JuncalAceriaMaterials)
                 .HasForeignKey(d => d.IdAceria)
@@ -260,6 +259,9 @@ public partial class JuncalContext : DbContext
             entity.Property(e => e.Numero)
                 .HasMaxLength(255)
                 .HasColumnName("numero");
+            entity.Property(e => e.ValorFlete)
+                .HasPrecision(10)
+                .HasColumnName("valorFlete");
 
             entity.HasOne(d => d.IdAceriaNavigation).WithMany(p => p.JuncalContratos)
                 .HasForeignKey(d => d.IdAceria)
@@ -420,6 +422,7 @@ public partial class JuncalContext : DbContext
             entity.Property(e => e.Isdeleted)
                 .HasDefaultValueSql("'0'")
                 .HasColumnName("isdeleted");
+            entity.Property(e => e.Observaciones).HasMaxLength(255);
             entity.Property(e => e.Remito)
                 .HasMaxLength(255)
                 .HasColumnName("remito");
@@ -520,6 +523,23 @@ public partial class JuncalContext : DbContext
                 .HasColumnName("nombre");
         });
 
+        modelBuilder.Entity<JuncalSucursal>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PRIMARY");
+
+            entity.ToTable("juncal.sucursal");
+
+            entity.Property(e => e.Id)
+                .HasColumnType("int(11)")
+                .HasColumnName("id");
+            entity.Property(e => e.Nombre)
+                .HasMaxLength(255)
+                .HasColumnName("nombre");
+            entity.Property(e => e.Numero)
+                .HasColumnType("int(11)")
+                .HasColumnName("numero");
+        });
+
         modelBuilder.Entity<JuncalTipoCamion>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
@@ -585,10 +605,10 @@ public partial class JuncalContext : DbContext
                 .HasMaxLength(255)
                 .HasColumnName("nombre");
             entity.Property(e => e.PasswordHash)
-                .HasColumnType("bit(64)")
+                .HasMaxLength(255)
                 .HasColumnName("passwordHASH");
             entity.Property(e => e.PasswordSalt)
-                .HasColumnType("bit(64)")
+                .HasMaxLength(255)
                 .HasColumnName("passwordSALT");
             entity.Property(e => e.Usuario)
                 .HasMaxLength(255)

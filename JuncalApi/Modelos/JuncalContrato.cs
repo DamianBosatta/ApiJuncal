@@ -11,15 +11,17 @@ public partial class JuncalContrato
 
     public string? Numero { get; set; }
 
-    public DateTime? FechaVigencia { get; set; }
+    public DateTime FechaVigencia { get; set; }
 
-    public DateTime? FechaVencimiento { get; set; }
+    public DateTime FechaVencimiento { get; set; }
 
     public int? IdAceria { get; set; }
 
     public bool Activo { get; set; }
 
     public bool Isdeleted { get; set; }
+
+    public decimal ValorFlete { get; set; }
 
     public virtual JuncalAcerium? IdAceriaNavigation { get; set; }
 

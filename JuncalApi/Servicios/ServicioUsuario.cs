@@ -115,8 +115,8 @@ namespace JuncalApi.Servicios
             user.Apellido = userReq.Apellido;
             user.IdRol=userReq.IdRol;
             user.Email = userReq.Email;
-            user.PasswordHash = BitConverter.ToUInt64(passwordHash, 0);       
-            user.PasswordSalt = BitConverter.ToUInt64(passwordSalt, 0);
+            //user.PasswordHash = BitConverter.ToUInt64(passwordHash, 0);       
+            //user.PasswordSalt = BitConverter.ToUInt64(passwordSalt, 0);
             
             return user;
 
@@ -125,23 +125,24 @@ namespace JuncalApi.Servicios
 
         public string InicioSesion(LoginRequerido userReq)
         {
+            var usuario = _uow.RepositorioJuncalUsuario.GetByCondition(u => u.Usuario == userReq.Usuario && u.Isdeleted==false);
 
-            if (user.Usuario != userReq.Usuario)
+            if (usuario.Usuario != userReq.Usuario)
             {
                 return " El Usuario No Existe";
             }
 
-            if (!VerificarPassworHash(userReq.Contraseña, BitConverter.GetBytes(user.PasswordHash) , BitConverter.GetBytes(user.PasswordSalt)))
-            {
-                return "Password Incorrecto";
-               
-            }
+            //if (!VerificarPassworHash(userReq.Contraseña, BitConverter.GetBytes(usuario.PasswordHash), BitConverter.GetBytes(usuario.PasswordSalt)))
+            //{
+            //    return "Password Incorrecto";
 
-            string token = CreateToken(user);
+            //}
+
+            string token = CreateToken(usuario);
 
             return token;
 
-          
+
 
         }
 
@@ -149,7 +150,7 @@ namespace JuncalApi.Servicios
         {
             List<Claim> claims = new List<Claim>()
             {
-                new Claim(ClaimTypes.Name,user.Nombre),
+                new Claim(ClaimTypes.Name,user.Usuario),
             };
 
             var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_configuration.GetSection("AppSettings: Token").Value));

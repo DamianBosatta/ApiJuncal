@@ -14,12 +14,12 @@
 
         public int IdEstado { get; set; }
 
-        public DateTime Fecha { get; set; }
-
-        public bool? Isdeleted { get; set; }
+        public DateOnly Fecha { get; set; }
 
         public int? IdProveedor { get; set; }
 
         public int? IdAcoplado { get; set; }
+
+        public string Observaciones { get; set; } = null!;
     }
 }
