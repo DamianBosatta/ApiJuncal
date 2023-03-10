@@ -30,6 +30,7 @@ namespace JuncalApi.UnidadDeTrabajo
             this.RepositorioJuncalTransportistum=new RepositorioJuncalTransportistum(context);
             this.RepositorioJuncalUsuario=new RepositorioJuncalUsuario(context); 
             this.RepositorioJuncalTipoCamion= new RepositorioJuncalTipoCamion(context);
+            this.RepositorioJuncalSucursal=new RepositorioJuncalSucursal(context);
 
         } 
 
@@ -82,7 +83,8 @@ namespace JuncalApi.UnidadDeTrabajo
         public IRepositorioJuncalUsuario RepositorioJuncalUsuario { get; private set; }
 
         public IRepositorioJuncalTipoCamion RepositorioJuncalTipoCamion { get; private set; }
-       
+
+        public IRepositorioJuncalSucursal RepositorioJuncalSucursal { get; private set; }
 
         public void Dispose()
         {

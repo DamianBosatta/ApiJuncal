@@ -16,6 +16,11 @@ namespace JuncalApi.Mapper
             CreateMap<JuncalCamion,CamionRespuesta >();
             #endregion
 
+            #region ACOPLADO
+            CreateMap<AcopladoRequerido, JuncalAcoplado>();
+            CreateMap<JuncalAcoplado, AcopladoRespuesta>();
+            #endregion
+
             #region TIPO CAMION
             CreateMap<TipoCamionRequerido, JuncalTipoCamion>();
             CreateMap<JuncalTipoCamion, TipoCamionRespuesta>();
@@ -67,11 +72,6 @@ namespace JuncalApi.Mapper
             CreateMap<JuncalContratoItem, ContratoItemRespuesta>();
             #endregion
 
-            #region CONTRATO PRECIO
-            CreateMap<AcopladoRequerido, JuncalAcoplado>();
-            CreateMap<JuncalAcoplado, AcopladoRespuesta>();
-            #endregion
-
             #region ESTADO
             CreateMap<EstadoRequerido, JuncalEstado>();
             CreateMap<JuncalEstado, EstadoRespuesta>();
@@ -95,6 +95,11 @@ namespace JuncalApi.Mapper
             #region ORDEN MATERIAL
             CreateMap<OrdenMaterialRequerido, JuncalOrdenMarterial>();
             CreateMap<JuncalOrdenMarterial, OrdenMaterialRespuesta>();
+            #endregion
+
+            #region SUCURSAL
+            CreateMap<SucursalRequerida, JuncalSucursal>();
+            CreateMap<JuncalSucursal, SucursalRespuesta>();
             #endregion
 
 

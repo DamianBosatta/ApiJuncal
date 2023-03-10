@@ -59,24 +59,24 @@ namespace JuncalApi.Controllers
         }
 
 
-        //[Route("Borrar/{id?}")]
-        //[HttpPut]
-        //public IActionResult IsDeletedAcoplado(int id)
-        //{
+        [Route("Borrar/{id?}")]
+        [HttpPut]
+        public IActionResult IsDeletedAcoplado(int id)
+        {
 
-        //    var acoplado = _uow.RepositorioJuncalAcoplado.GetById(id);
-        //    if (acoplado != null)
-        //    {
-        //        contratoPrecio.Isdeleted = true;
-        //        _uow.RepositorioJuncalContratoPrecio.Update(contratoPrecio);
+            var acoplado = _uow.RepositorioJuncalAcoplado.GetById(id);
+            if (acoplado != null)
+            {
+                acoplado.Isdeleted = true;
+                _uow.RepositorioJuncalAcoplado.Update(acoplado);
 
-        //        return Ok(new { success = true, message = "El Contrato Precio Fue Eliminado ", result = contratoPrecio.Isdeleted });
+                return Ok(new { success = true, message = "El Acoplado Fue Eliminado ", result = acoplado.Isdeleted });
 
-        //    }
+            }
 
-        //    return Ok(new { success = false, message = "El Contrato No Se Encontro ", result = new JuncalContratoPrecio() == null });
+            return Ok(new { success = false, message = " No Se Encontro El Acoplado ", result = new JuncalAcoplado() == null });
 
-        //}
+        }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> EditAcoplado(int id, AcopladoRequerido acopladoEdit)

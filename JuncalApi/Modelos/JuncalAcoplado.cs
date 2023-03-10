@@ -9,5 +9,7 @@ public partial class JuncalAcoplado
 
     public string Patente { get; set; } = null!;
 
+    public bool Isdeleted { get; set; }
+
     public virtual ICollection<JuncalOrden> JuncalOrdens { get; } = new List<JuncalOrden>();
 }

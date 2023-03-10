@@ -54,7 +54,7 @@ public partial class JuncalContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseMySql("server=sd-1812852-l.dattaweb.com;database=nicoales_nuevo;uid=nicoales_felix;pwd=Idra2023", Microsoft.EntityFrameworkCore.ServerVersion.Parse("5.7.30-mysql"));
+        => optionsBuilder.UseMySql("server=sd-1812852-l.dattaweb.com;database=nicoales_nuevo;uid=nicoales_felix;pwd=Idra2023", ServerVersion.Parse("5.7.30-mysql"));
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -141,6 +141,7 @@ public partial class JuncalContext : DbContext
             entity.Property(e => e.Id)
                 .HasColumnType("int(11)")
                 .HasColumnName("id");
+            entity.Property(e => e.Isdeleted).HasColumnName("isdeleted");
             entity.Property(e => e.Patente)
                 .HasMaxLength(255)
                 .HasColumnName("patente");
