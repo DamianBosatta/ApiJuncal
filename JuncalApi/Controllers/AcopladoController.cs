@@ -4,6 +4,7 @@ using JuncalApi.Dto.DtoRespuesta;
 using JuncalApi.Modelos;
 using JuncalApi.UnidadDeTrabajo;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace JuncalApi.Controllers
 {
@@ -26,7 +27,7 @@ namespace JuncalApi.Controllers
         public async Task<ActionResult<IEnumerable<AcopladoRespuesta>>> GetAcoplados()
         {
 
-            var ListaAcoplados = _uow.RepositorioJuncalAcoplado.GetAll();
+            var ListaAcoplados = _uow.RepositorioJuncalAcoplado.GetAllByCondition(a => a.Isdeleted == false).ToList();
 
             if (ListaAcoplados.Count() > 0)
             {
@@ -65,7 +66,7 @@ namespace JuncalApi.Controllers
         {
 
             var acoplado = _uow.RepositorioJuncalAcoplado.GetById(id);
-            if (acoplado != null)
+            if (acoplado != null && acoplado.Isdeleted == false)
             {
                 acoplado.Isdeleted = true;
                 _uow.RepositorioJuncalAcoplado.Update(acoplado);
