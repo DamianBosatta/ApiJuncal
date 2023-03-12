@@ -102,6 +102,11 @@ namespace JuncalApi.Mapper
             CreateMap<JuncalSucursal, SucursalRespuesta>();
             #endregion
 
+            #region DIRECCION PROVEEDOR
+            CreateMap<DireccionProveedorRequerido, JuncalDireccionProveedor>();
+            CreateMap<JuncalDireccionProveedor, DireccionProveedorRespuesta>();
+            #endregion
+
 
         }
 

@@ -81,18 +81,49 @@ namespace JuncalApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> EditOrdenMaterial(int id, OrdenMaterialRequerido ordenMaterialEdits)
+        public async Task<IActionResult> EditOrdenMaterial(int idOrden,List<OrdenMaterialRequerido> listOrdenMaterialEdits)
         {
-            var ordenMaterial = _uow.RepositorioJuncalOrdenMarterial.GetById(id);
-
-            if (ordenMaterial != null && ordenMaterial.Isdeleted == false)
+            if (listOrdenMaterialEdits.Count > 0)
             {
-                _mapper.Map(ordenMaterialEdits, ordenMaterial);
-                _uow.RepositorioJuncalOrdenMarterial.Update(ordenMaterial);
-                return Ok(new { success = true, message = "La Orden Material Fue Actualizada", result = ordenMaterial });
+
+                var listaEditada = new List<JuncalOrdenMarterial>();
+
+                var materialNuevo = new JuncalOrdenMarterial();
+
+                foreach (var material in listOrdenMaterialEdits)
+                {
+                    if (material.Id == 0 && material.IdOrden == idOrden)
+                    {
+                        _mapper.Map(material, materialNuevo);
+                        _uow.RepositorioJuncalOrdenMarterial.Insert(materialNuevo);
+                        listaEditada.Add(materialNuevo);
+
+                    }
+                    else if (material.IdOrden == idOrden)
+                    {
+                        _mapper.Map(material, materialNuevo);
+                        listaEditada.Add(materialNuevo);
+
+                    }
+
+
+                }
+
+                foreach (var material in listaEditada)
+                {
+                    _uow.RepositorioJuncalOrdenMarterial.Update(material);
+
+                }
+
+                return Ok(new { success = true, message = "La Orden Material Fue Actualizada", result = listaEditada });
+
+
             }
 
-            return Ok(new { success = false, message = "La Orden Material No Fue Encontrada ", result = new JuncalOrdenMarterial() == null });
+
+            return Ok(new { success = false, message = "La Lista a Actualizar No Contiene Datos ", result = new JuncalOrdenMarterial() == null });
+
+
 
 
         }

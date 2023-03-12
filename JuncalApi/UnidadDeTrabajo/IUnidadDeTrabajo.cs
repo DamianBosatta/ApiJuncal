@@ -22,5 +22,6 @@ namespace JuncalApi.UnidadDeTrabajo
         IRepositorioJuncalUsuario RepositorioJuncalUsuario { get; }
         IRepositorioJuncalTipoCamion RepositorioJuncalTipoCamion { get; }
         IRepositorioJuncalSucursal RepositorioJuncalSucursal { get; }
+        IRepositorioJuncalDireccionProveedor RepositorioJuncalDireccionProveedor { get; }
     }
 }

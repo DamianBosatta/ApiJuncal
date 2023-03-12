@@ -30,6 +30,8 @@ public partial class JuncalContext : DbContext
 
     public virtual DbSet<JuncalContratoItem> JuncalContratoItems { get; set; }
 
+    public virtual DbSet<JuncalDireccionProveedor> JuncalDireccionProveedors { get; set; }
+
     public virtual DbSet<JuncalEstado> JuncalEstados { get; set; }
 
     public virtual DbSet<JuncalMaterial> JuncalMaterials { get; set; }
@@ -54,7 +56,7 @@ public partial class JuncalContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseMySql("server=sd-1812852-l.dattaweb.com;database=nicoales_nuevo;uid=nicoales_felix;pwd=Idra2023", ServerVersion.Parse("5.7.30-mysql"));
+        => optionsBuilder.UseMySql("server=sd-1812852-l.dattaweb.com;database=nicoales_nuevo;uid=nicoales_felix;pwd=Idra2023", Microsoft.EntityFrameworkCore.ServerVersion.Parse("5.7.30-mysql"));
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -196,7 +198,6 @@ public partial class JuncalContext : DbContext
 
             entity.HasOne(d => d.IdTipoCamionNavigation).WithMany(p => p.JuncalCamions)
                 .HasForeignKey(d => d.IdTipoCamion)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("fk_id_tipoCamion");
 
             entity.HasOne(d => d.IdTransportistaNavigation).WithMany(p => p.JuncalCamions)
@@ -302,6 +303,31 @@ public partial class JuncalContext : DbContext
                 .HasForeignKey(d => d.IdMaterial)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("fk_id_material");
+        });
+
+        modelBuilder.Entity<JuncalDireccionProveedor>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PRIMARY");
+
+            entity.ToTable("juncal.direccion_proveedor");
+
+            entity.HasIndex(e => e.IdProveedor, "fk_idproveedor");
+
+            entity.Property(e => e.Id)
+                .HasColumnType("int(11)")
+                .HasColumnName("id");
+            entity.Property(e => e.Direccion)
+                .HasColumnType("int(11)")
+                .HasColumnName("direccion");
+            entity.Property(e => e.IdProveedor)
+                .HasColumnType("int(200)")
+                .HasColumnName("idProveedor");
+            entity.Property(e => e.Isdelete).HasColumnName("isdelete");
+
+            entity.HasOne(d => d.IdProveedorNavigation).WithMany(p => p.JuncalDireccionProveedors)
+                .HasForeignKey(d => d.IdProveedor)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("fk_idproveedor");
         });
 
         modelBuilder.Entity<JuncalEstado>(entity =>
