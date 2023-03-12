@@ -1,0 +1,71 @@
+[33mcommit 3cb4c9943b4cbcfd3a502007fa2c1c731b578140[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: Damian Bosatta <daami21@gmail.com>
+Date:   Sat Mar 11 23:30:08 2023 -0300
+
+    msj
+
+[33mcommit 15027bd3da9b22ae2cad165d427d9fd7cb4ba252[m
+Author: Damian Bosatta <daami21@gmail.com>
+Date:   Sat Mar 11 23:27:29 2023 -0300
+
+    commit probando
+
+[33mcommit 36afe9c87c4403d5e58af7a6295d0935eddce9f2[m
+Author: Damian Bosatta <daami21@gmail.com>
+Date:   Sat Mar 11 23:12:09 2023 -0300
+
+     Creado funcionamiento direccion proveedores y cambio en edit oden material
+
+[33mcommit d4b7007de423b28ee62212dad6e1dd80d07d0953[m
+Author: Damian Bosatta <daami21@gmail.com>
+Date:   Thu Mar 9 22:05:06 2023 -0300
+
+    EndPoint Sucursal Creado
+
+[33mcommit af37cc5ba74aacfaa2dc3eb0892001288a50fa16[m
+Author: Damian Bosatta <daami21@gmail.com>
+Date:   Thu Mar 9 18:34:25 2023 -0300
+
+    arreglo de endpoints
+
+[33mcommit 9ea51f43a8670bddc8a952bddfac328f1fd26273[m
+Author: Damian Bosatta <daami21@gmail.com>
+Date:   Wed Mar 8 23:42:53 2023 -0300
+
+    Arreglos numero 1000 de pedidos nuevos
+
+[33mcommit 8bfa7f9f7daec29f2391990fded0ac3e8a478849[m
+Author: Damian Bosatta <daami21@gmail.com>
+Date:   Sun Feb 26 20:31:47 2023 -0300
+
+    Controlador Contrato Item Actualizado
+
+[33mcommit b9b7ed4bf41c8445a86c5dbbe8f7661fb862cbd5[m
+Author: Damian Bosatta <daami21@gmail.com>
+Date:   Sat Feb 25 23:37:49 2023 -0300
+
+    Cambios de reunion en Juncal Realizados desde el back
+
+[33mcommit 7b67d206d2ce78d7f286f2888026e346562d44e6[m
+Author: Damian Bosatta <daami21@gmail.com>
+Date:   Fri Feb 24 22:07:29 2023 -0300
+
+    Arreglo En controladoras contrato precio y orden material
+
+[33mcommit ccbce9a0f971baf94f050cae93057124a9ef9312[m
+Author: Damian Bosatta <daami21@gmail.com>
+Date:   Fri Feb 24 00:11:06 2023 -0300
+
+     Arreglo  en Service Usuario
+
+[33mcommit aa0f7ce05e778eb3d0b952aec8965d21fd9015b1[m
+Author: Damian Bosatta <daami21@gmail.com>
+Date:   Fri Feb 24 00:00:06 2023 -0300
+
+     Controladoras orden , ordenMaterial , proveedor , proveedorMaterial
+
+[33mcommit 3204976fc65c8b862aefb216c7a4e3f9d5ea1bbc[m
+Author: Damian Bosatta <daami21@gmail.com>
+Date:   Wed Feb 22 19:05:53 2023 -0300
+
+     pedidos de controladores terminado
